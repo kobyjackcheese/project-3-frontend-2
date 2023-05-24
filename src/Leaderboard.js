@@ -40,31 +40,6 @@ const Leaderboard = (props) => {
         console.log(newForm)
     }
 
-
-    // const createScore = async (leaderboard) => {
-    //     try {
-    //         const newScore = await fetch(BASE_URL, {
-    //             meathod: "post",
-    //             headers: {
-    //                 "Content-Type": "application/json"
-    //             },
-    //             body: JSON.stringify(leaderboard)
-    //         });
-    //         getLeaderboard()
-    //         return(await newScore.json())
-
-
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault()
-    //     const newScore = await createScore()
-    //     setNewForm({ name: "", score: "" })
-    // }
-
     async function handleSubmit(e) {
         try {
             e.preventDefault();

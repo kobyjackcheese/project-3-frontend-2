@@ -1,0 +1,112 @@
+* {
+    color: rgb(177, 167, 167);
+}
+
+body {
+    background-color: rgb(8, 8, 8);
+}
+
+button:hover {
+    transform: scale(1.1)
+    
+}
+
+
+.greenButton {
+    width: 150px;
+    height: 150px;
+    background-color: green;
+    border-top-left-radius: 150px;
+    position: relative;
+    transition: 100ms;
+    bottom: 5px;
+    right: 5px;
+    border: none;
+}
+
+.yellowButton {
+    width: 150px;
+    height: 150px;
+    background-color: yellow;
+    border-bottom-right-radius: 150px;
+    position: relative;
+    transition: 100ms;
+    left: 5px;
+    top: 5px;
+    border: none;
+}
+
+.redButton {
+    width: 150px;
+    height: 150px;
+    background-color: red;
+    border-top-right-radius: 150px;
+    position: relative;
+    transition: 100ms;
+    bottom: 5px;
+    left: 5px;
+    border: none;
+}
+
+.blueButton {
+    width: 150px;
+    height: 150px;
+    background-color: blue;
+    border-bottom-left-radius: 150px;
+    position: relative;
+    transition: 100ms;
+    top: 5px;
+    right: 5px;
+    border: none;
+}
+
+.startButton {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: black;
+    position: absolute;
+    z-index: 3;
+    left: 100px;
+    top: 104px;
+    transition: 100ms;
+    border: none;
+}
+
+.buttonContainer {
+    position: absolute;
+    margin: 100px;
+}
+
+@media (max-width: 500px) {
+    .buttonContainer {
+        max-width: 70%;
+    }
+
+    .redButton {
+        width: 75px;
+        height: 75px;
+    }
+
+    .blueButton {
+        width: 75px;
+        height: 75px;
+    }
+
+    .yellowButton {
+        width: 75px;
+        height: 75px;
+    }
+
+    .greenButton {
+        width: 75px;
+        height: 75px;
+    }
+
+    .startButton {
+        width: 50px;
+        height: 50px;
+        top: 53px;
+        left: 49px;
+    }
+}

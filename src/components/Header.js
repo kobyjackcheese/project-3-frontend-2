@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 
+
 function Header(props) {
   //inline style for the nav tag
   const navStyle = {
     display: "flex",
     justifyContent: "space-around",
-    border: "3px solid black",
+    border: "3px solid white",
     padding: "8px",
     width: "90%",
     margin: "auto",
@@ -13,10 +14,10 @@ function Header(props) {
 
   return (
     <header>
-    <h1 className="headerTitle">Simon!</h1>
+      <h1 className="headerTitle">Simon!</h1>
       <nav style={navStyle}>
         <Link to="/">
-          <div>HOME</div>
+          <div>PLAY GAME</div>
         </Link>
         <Link to="/leaderboard">
           <div>LEADERBOARD</div>

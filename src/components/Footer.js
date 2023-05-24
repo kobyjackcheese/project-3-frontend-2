@@ -4,10 +4,12 @@ const Footer = (props) => {
   const navStyle = {
     display: "flex",
     justifyContent: "space-around",
-    border: "3px solid black",
+    border: "3px solid white",
     padding: "8px",
     width: "90%",
     margin: "auto",
+    position: "absolute",
+    bottom: 30,
   };
   return(
     <header>
