@@ -13,6 +13,8 @@ const SimonGame = () => {
   const [score, setScore] = useState(0)
   const [patternIdx, setPatternIdx] = useState(0)
   const [playerIdx, setPlayerIdx] = useState(1)
+  const [flashIdx, setFlashIdx] = useState(0)
+  const [flashing, setFlashing] = useState(false)
 
   function addNewColor() {
     const randomColor = colors[Math.floor(Math.random() * 4)];
@@ -23,23 +25,31 @@ const SimonGame = () => {
 
 
   function greenClick() {
-    setPlayerIdx(playerIdx + 1)
-    comparePatterns(colors[2])
+    if (!flashing) {
+      setPlayerIdx(playerIdx + 1)
+      comparePatterns(colors[2])
+    }
   }
 
   function redClick() {
-    setPlayerIdx(playerIdx + 1)
-    comparePatterns(colors[0])
+    if (!flashing) {
+      setPlayerIdx(playerIdx + 1)
+      comparePatterns(colors[0])
+    }
   }
 
   function blueClick() {
-    setPlayerIdx(playerIdx + 1)
-    comparePatterns(colors[1])
+    if (!flashing) {
+      setPlayerIdx(playerIdx + 1)
+      comparePatterns(colors[1])
+    }
   }
 
   function yellowClick() {
-    setPlayerIdx(playerIdx + 1)
-    comparePatterns(colors[3])
+    if (!flashing) {
+      setPlayerIdx(playerIdx + 1)
+      comparePatterns(colors[3])
+    }
   }
 
   const comparePatterns = (color) => {
@@ -78,54 +88,77 @@ const SimonGame = () => {
   }
 
   function test() {
+    setFlashIdx(flashIdx + 1)
     showPattern()
   }
 
   const showPattern = () => {
-    for (let i = 0; i < pattern.length; i++) {
-      if (pattern[i] === "red") {
-        setTimeout(() => {
-          setRedFlash(true)
-          console.log("red flash on")
-        }, "1000")
-        setTimeout(() => {
-          setRedFlash(false)
-          console.log("red flash off")
-        }, "1000")
-      }
-      if (pattern[i] === "blue") {
-        setTimeout(() => {
-          setBlueFlash(true)
-          console.log("blue flash on")
-        }, "1000")
-        setTimeout(() => {
-          setBlueFlash(false)
-          console.log("blue flash off")
-        }, "1000")
-      }
-      if (pattern[i] === "green") {
-        setTimeout(() => {
-          setGreenFlash(true)
-          console.log("green flash on")
-        }, "1000")
-        setTimeout(() => {
-          setGreenFlash(false)
-          console.log("green flash off")
-        }, "1000")
-      }
-      if (pattern[i] === "yellow") {
-        setTimeout(() => {
-          setYellowFlash(true)
-          console.log("yellow flash on")
-        }, "1000")
-        setTimeout(() => {
-          setYellowFlash(false)
-          console.log("yellow flash off")
-        }, "1000")
-      }
+    setFlashing(true)
+    flashOnFunction()
+  }
+
+  function flashOnFunction() {
+
+    console.log(`flash idx: ${flashIdx}`)
+    if (pattern[flashIdx] === "red") {
+      setTimeout(() => {
+        console.log("red on")
+        setRedFlash(true)
+        flashOffFunction()
+      }, "250")
+    }
+    if (pattern[flashIdx] === "blue") {
+      setTimeout(() => {
+        console.log("blue on")
+        setBlueFlash(true)
+        flashOffFunction()
+      }, "250")
+    }
+    if (pattern[flashIdx] === "green") {
+      setTimeout(() => {
+        console.log("green on")
+        setGreenFlash(true)
+        flashOffFunction()
+      }, "250")
+    }
+    if (pattern[flashIdx] === "yellow") {
+      setTimeout(() => {
+        console.log("yellow on")
+        setYellowFlash(true)
+        flashOffFunction()
+      }, "250")
+
+    }
+
+  }
+
+  function flashOffFunction() {
+    setTimeout(() => {
+      console.log("all off")
+      setRedFlash(false)
+      setBlueFlash(false)
+      setGreenFlash(false)
+      setYellowFlash(false)
+      nextFlash()
+    }, "500")
+  }
+
+  function nextFlash() {
+    console.log(`flashIdx: ${flashIdx + 1}, pattern length: ${pattern.length}`)
+    if (flashIdx + 1 === pattern.length) {
+      setFlashing(false)
+      setFlashIdx(0)
+    } else {
+      flashReset()
     }
   }
-  
+
+  function flashReset() {
+    setTimeout(() => {
+      test()
+    }, "500")
+  }
+
   function toggleRedTrue() {
     setRedFlash(true)
   }
@@ -143,21 +176,20 @@ const SimonGame = () => {
     setPlaying(true)
   }
 
-// className={isActive ? "active" : "inactive"}
   return (
     <div className="buttonContainer">
       <div className="topButtons">
-        <button className="greenButton"
+        <button className={greenFlash ? "greenFlash" : "greenButton"}
           onClick={greenClick}></button>
 
         <button className={redFlash ? "redFlash" : "redButton"}
           onClick={redClick}></button>
       </div>
       <div className="bottomButtons">
-        <button className="blueButton"
+        <button className={blueFlash ? "blueFlash" : "blueButton"}
           onClick={blueClick}></button>
 
-        <button className="yellowButton"
+        <button className={yellowFlash ? "yellowFlash" : "yellowButton"}
           onClick={yellowClick}></button>
 
         <button className="startButton"

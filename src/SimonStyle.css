@@ -24,7 +24,15 @@ button:hover {
     border: none;
 }
 .greenFlash {
+    width: 150px;
+    height: 150px;
     background-color: white;
+    border-top-left-radius: 150px;
+    position: relative;
+    transition: 100ms;
+    bottom: 5px;
+    right: 5px;
+    border: none;
 }
 
 .yellowButton {
@@ -39,7 +47,15 @@ button:hover {
     border: none;
 }
 .yellowFlash {
+    width: 150px;
+    height: 150px;
     background-color: white;
+    border-bottom-right-radius: 150px;
+    position: relative;
+    transition: 100ms;
+    left: 5px;
+    top: 5px;
+    border: none;
 }
 
 .redButton {
@@ -77,7 +93,15 @@ button:hover {
     border: none;
 }
 .blueFlash {
+    width: 150px;
+    height: 150px;
     background-color: white;
+    border-bottom-left-radius: 150px;
+    position: relative;
+    transition: 100ms;
+    top: 5px;
+    right: 5px;
+    border: none;
 }
 
 .startButton {
