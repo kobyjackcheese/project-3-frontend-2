@@ -5,6 +5,8 @@ function Header(props) {
   //inline style for the nav tag
   const navStyle = {
     display: "flex",
+    // position: "relative",
+    // backgroundColor: "black",
     justifyContent: "space-around",
     border: "3px solid white",
     padding: "8px",

@@ -1,5 +1,5 @@
 import "../SimonStyle.css"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 const SimonGame = () => {
@@ -13,128 +13,127 @@ const SimonGame = () => {
   const [score, setScore] = useState(0)
   const [patternIdx, setPatternIdx] = useState(0)
   const [playerIdx, setPlayerIdx] = useState(1)
-  const [flashIdx, setFlashIdx] = useState(0)
-  const [flashing, setFlashing] = useState(false)
+  const [flashIdx, setFlashIdx] = useState(-1)
+
+  /////////////////////////////
+  //button presses
+  /////////////////////////////
+
+  function greenClick() {
+    setPlayerIdx(playerIdx + 1)
+    comparePatterns(colors[2])
+  }
+
+  function redClick() {
+    setPlayerIdx(playerIdx + 1)
+    comparePatterns(colors[0])
+  }
+
+  function blueClick() {
+    setPlayerIdx(playerIdx + 1)
+    comparePatterns(colors[1])
+  }
+
+  function yellowClick() {
+    setPlayerIdx(playerIdx + 1)
+    comparePatterns(colors[3])
+  }
+
+  const startGame = () => {
+    if (!playing) {
+      setPlaying(true)
+      addNewColor()
+      setScore(0)
+    }
+  }
+
+  /////////////////////////////
+  //compare sequence logic
+  /////////////////////////////
 
   function addNewColor() {
     const randomColor = colors[Math.floor(Math.random() * 4)];
     const updatedPattern = [...pattern, randomColor];
     setPattern(updatedPattern);
-    console.log(updatedPattern);
-  }
-
-
-  function greenClick() {
-    if (!flashing) {
-      setPlayerIdx(playerIdx + 1)
-      comparePatterns(colors[2])
-    }
-  }
-
-  function redClick() {
-    if (!flashing) {
-      setPlayerIdx(playerIdx + 1)
-      comparePatterns(colors[0])
-    }
-  }
-
-  function blueClick() {
-    if (!flashing) {
-      setPlayerIdx(playerIdx + 1)
-      comparePatterns(colors[1])
-    }
-  }
-
-  function yellowClick() {
-    if (!flashing) {
-      setPlayerIdx(playerIdx + 1)
-      comparePatterns(colors[3])
-    }
+    // console.log(updatedPattern);
+    setFlashIdx(flashIdx + 1)
   }
 
   const comparePatterns = (color) => {
     // console.log(`player choice: ${color}, being compaired to ${pattern[patternIdx]}`)
     if (pattern[patternIdx] === color) {
-      console.log('correct')
+      // console.log('correct')
       setPatternIdx(patternIdx + 1)
       setPlayerIdx(playerIdx + 1)
     } else {
-      console.log("incorrect")
+      // console.log("incorrect")
       gameLost()
+      setPlaying(false)
     }
-
-    // console.log(`player idx: ${playerIdx}`)
-    // console.log(`pattern length: ${pattern.length}`)
     // console.log(`${playerIdx} is being compaired to ${pattern.length}, and patternIdx ${pattern[patternIdx]} is being compaired to ${color}`)
-
     if (playerIdx === pattern.length && pattern[patternIdx] === color) {
-      console.log("all correct")
-      // console.log(patternIdx)
+      // console.log("all correct")
       setPlayerIdx(1)
       setPatternIdx(0)
       addNewColor()
       setScore(score + 1)
+      // setFlashIdx(flashIdx + 1)
     }
 
   }
-
 
   function gameLost() {
     setPlayerIdx(1)
     setPatternIdx(0)
     setPattern([])
     setPlaying(false)
-    console.log(`you lost with a score of ${score}`)
+    alert(`you lost with a score of ${score}`)
+    // console.log(`you lost with a score of ${score}`)
   }
 
-  function test() {
-    setFlashIdx(flashIdx + 1)
-    showPattern()
-  }
+  /////////////////////////////
+  //show sequence logic
+  /////////////////////////////
 
   const showPattern = () => {
-    setFlashing(true)
     flashOnFunction()
   }
 
   function flashOnFunction() {
-
-    console.log(`flash idx: ${flashIdx}`)
+    // console.log(`flash idx: ${flashIdx}`)
     if (pattern[flashIdx] === "red") {
       setTimeout(() => {
-        console.log("red on")
+        // console.log("red on")
         setRedFlash(true)
         flashOffFunction()
-      }, "250")
+      }, "150")
     }
     if (pattern[flashIdx] === "blue") {
       setTimeout(() => {
-        console.log("blue on")
+        // console.log("blue on")
         setBlueFlash(true)
         flashOffFunction()
-      }, "250")
+      }, "150")
     }
     if (pattern[flashIdx] === "green") {
       setTimeout(() => {
-        console.log("green on")
+        // console.log("green on")
         setGreenFlash(true)
         flashOffFunction()
-      }, "250")
+      }, "150")
     }
     if (pattern[flashIdx] === "yellow") {
       setTimeout(() => {
-        console.log("yellow on")
+        // console.log("yellow on")
         setYellowFlash(true)
         flashOffFunction()
-      }, "250")
-
+      }, "150")
     }
-
   }
 
-  function flashOffFunction() {
+  const flashOffFunction = () => {
     setTimeout(() => {
-      console.log("all off")
+      // console.log("all off")
       setRedFlash(false)
       setBlueFlash(false)
       setGreenFlash(false)
@@ -143,38 +142,23 @@ const SimonGame = () => {
     }, "500")
   }
 
-  function nextFlash() {
-    console.log(`flashIdx: ${flashIdx + 1}, pattern length: ${pattern.length}`)
-    if (flashIdx + 1 === pattern.length) {
-      setFlashing(false)
-      setFlashIdx(0)
-    } else {
-      flashReset()
+  const nextFlash = () => {
+    // console.log(`flashIdx: ${flashIdx + 1}, pattern length: ${pattern.length}`)
+    if (flashIdx !== pattern.length) {
+      // console.log('next flash')
+      setFlashIdx(flashIdx + 1)
     }
   }
 
-  function flashReset() {
+  useEffect(() => {
     setTimeout(() => {
-      test()
-    }, "500")
-  }
-
-  function toggleRedTrue() {
-    setRedFlash(true)
-  }
-  function toggleRedFlase() {
-    setRedFlash(false)
-  }
-
-
-  const startGame = () => {
-    // if (!playing) {
-    //   setPlaying(true)
-    //   addNewColor()
-    // }
-    addNewColor()
-    setPlaying(true)
-  }
+      if (flashIdx === pattern.length) {
+        setFlashIdx(-1)
+        // console.log('setting flashidx to -1')
+      }
+      showPattern()
+    }, "300")
+  }, [flashIdx])
 
   return (
     <div className="buttonContainer">
@@ -200,10 +184,6 @@ const SimonGame = () => {
       <div className="score">
         <h2>Score: {score}</h2>
       </div>
-      <button onClick={test}>show pattern</button>
-      <button onClick={toggleRedTrue}>redTrue</button>
-      <button onClick={toggleRedFlase}>redFlase</button>
-
     </div>
   )
 }

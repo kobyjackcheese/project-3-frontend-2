@@ -43,7 +43,7 @@ const Leaderboard = (props) => {
     async function handleSubmit(e) {
         try {
             e.preventDefault();
-         const newScore = await fetch(BASE_URL, {
+            const newScore = await fetch(BASE_URL, {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json"
@@ -61,7 +61,7 @@ const Leaderboard = (props) => {
         <div>
             <section>
                 <h2>input score</h2>
-                <form onSubmit={handleSubmit}>
+                <form className="inputForm" onSubmit={handleSubmit}>
                     <input
                         type="text"
                         placeholder="name"
@@ -79,7 +79,9 @@ const Leaderboard = (props) => {
                     <input type="submit" value="input person" />
                 </form>
             </section>
-            {leaderboard.length ? loaded(leaderboard) : <h2>Loading...</h2>}
+            <div className="leaderboard">
+                {leaderboard.length ? loaded(leaderboard) : <h2>Loading...</h2>}
+            </div>
         </div>
 
     )
