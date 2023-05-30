@@ -43,6 +43,13 @@ const Leaderboard = (props) => {
     async function handleSubmit(e) {
         try {
             e.preventDefault();
+            await fetch(BASE_URL, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newForm)
+            })
             getLeaderboard()
             e.target.reset();
         } catch (error) {
