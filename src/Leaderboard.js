@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import  "./SimonStyle.css"
 
 const Leaderboard = (props) => {
 
     const [leaderboard, setLeaderboard] = useState([]);
-    const BASE_URL = "http://localhost:4000/leaderboard";
+    const BASE_URL = "https://kobysimongamebackend.onrender.com/leaderboard";
     const [newForm, setNewForm] = useState({
         name: "",
         score: "",
@@ -26,10 +27,9 @@ const Leaderboard = (props) => {
     function loaded(leaderboard) {
         return (
             leaderboard.map((leaderboard, index) => (
-                <div key={index}>
-                    <h1>Name: {leaderboard.name}</h1>
-                    <h1>Score: {leaderboard.score}</h1>
-                    <hr></hr>
+                <div className="scores" key={index}>
+                    <h1 className="name">Name: {leaderboard.name}</h1>
+                    <h1 className="score">Score: {leaderboard.score}</h1>
                 </div>
             ))
         )
@@ -37,19 +37,12 @@ const Leaderboard = (props) => {
 
     const handleChange = (e) => {
         setNewForm({ ...newForm, [e.target.name]: e.target.value });
-        console.log(newForm)
+        // console.log(newForm)
     }
 
     async function handleSubmit(e) {
         try {
             e.preventDefault();
-            const newScore = await fetch(BASE_URL, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(newForm)
-            });
             getLeaderboard()
             e.target.reset();
         } catch (error) {

@@ -1,4 +1,8 @@
 import "../SimonStyle.css"
+import simon1 from '../sounds/simon1.mp3'
+import simon2 from '../sounds/simon2.mp3'
+import simon3 from '../sounds/simon3.mp3'
+import simon4 from '../sounds/simon4.mp3'
 import { useState, useEffect } from "react";
 
 
@@ -14,27 +18,39 @@ const SimonGame = () => {
   const [patternIdx, setPatternIdx] = useState(0)
   const [playerIdx, setPlayerIdx] = useState(1)
   const [flashIdx, setFlashIdx] = useState(-1)
+  const greenSound = new Audio(simon1)
+  const yellowSound = new Audio(simon4)
+  const redSound = new Audio(simon2)
+  const blueSound = new Audio(simon3)
 
   /////////////////////////////
   //button presses
   /////////////////////////////
 
   function greenClick() {
+    const greenSound = new Audio(simon1)
+    greenSound.play()
     setPlayerIdx(playerIdx + 1)
     comparePatterns(colors[2])
   }
 
   function redClick() {
+    const redSound = new Audio(simon2)
+    redSound.play()
     setPlayerIdx(playerIdx + 1)
     comparePatterns(colors[0])
   }
 
   function blueClick() {
+    const blueSound = new Audio(simon3)
+    blueSound.play()
     setPlayerIdx(playerIdx + 1)
     comparePatterns(colors[1])
   }
 
   function yellowClick() {
+    const yellowSound = new Audio(simon4)
+    yellowSound.play()
     setPlayerIdx(playerIdx + 1)
     comparePatterns(colors[3])
   }
@@ -56,7 +72,9 @@ const SimonGame = () => {
     const updatedPattern = [...pattern, randomColor];
     setPattern(updatedPattern);
     // console.log(updatedPattern);
-    setFlashIdx(flashIdx + 1)
+    setTimeout(() => {
+      setFlashIdx(flashIdx + 1)
+    }, "300")
   }
 
   const comparePatterns = (color) => {
@@ -104,12 +122,14 @@ const SimonGame = () => {
     if (pattern[flashIdx] === "red") {
       setTimeout(() => {
         // console.log("red on")
+        redSound.play()
         setRedFlash(true)
         flashOffFunction()
       }, "150")
     }
     if (pattern[flashIdx] === "blue") {
       setTimeout(() => {
+        blueSound.play()
         // console.log("blue on")
         setBlueFlash(true)
         flashOffFunction()
@@ -117,6 +137,7 @@ const SimonGame = () => {
     }
     if (pattern[flashIdx] === "green") {
       setTimeout(() => {
+        greenSound.play()
         // console.log("green on")
         setGreenFlash(true)
         flashOffFunction()
@@ -124,6 +145,7 @@ const SimonGame = () => {
     }
     if (pattern[flashIdx] === "yellow") {
       setTimeout(() => {
+        yellowSound.play()
         // console.log("yellow on")
         setYellowFlash(true)
         flashOffFunction()
